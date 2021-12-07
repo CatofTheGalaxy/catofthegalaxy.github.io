@@ -500,8 +500,8 @@
 							break;
 					}
 					CurrentBoss = bossTime;
-					PreviousBoss[0] = indexTime[index-1];
-					PreviousBoss[1] = bossdata[weekDay-1][indexTime[index-1]];
+					PreviousBoss[0] = indexTime[indexSize-1];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
 					NextBoss[0] = indexTime[indexSize-2];
 					NextBoss[1] = bossdata[weekDay][indexTime[indexSize-2]];
 					break;
@@ -519,7 +519,6 @@
 			//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 			n++;
 		}
-
 		if (n == 1) {
 			document.getElementById(`nextBoss${n}`).src= `imgs/blank.png`;
 			document.getElementById(`nextBossName${n}`).innerHTML= "";
