@@ -355,9 +355,9 @@
 					//s += 
 					n++;
 				}
-				if (n == 0) {
-					document.getElementById(`currentBoss${(n+1)}`).src= `imgs/blank.png`;
-					document.getElementById(`currentBossName${(n+1)}`).innerHTML= "";
+				if (n == 1) {
+					document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
+					document.getElementById(`currentBossName${n}`).innerHTML= "";
 				}
 
 				document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
@@ -473,8 +473,9 @@
 						document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
 						document.getElementById(`currentBossName${n}`).innerHTML= `<h3>bossdata[weekDay][bossTime][b]["name"]`;
 						bossType = bossdata[weekDay][bossTime][b]["type"];
+						n++;
 					}
-					if (n == 0) {
+					if (n == 1) {
 						document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
 						document.getElementById(`currentBossName${n}`).innerHTML= "";
 					}
@@ -543,9 +544,10 @@
 			//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 			n++;
 		}
-		if (n == 0) {
-			document.getElementById(`nextBoss${(n+1)}`).src= `imgs/blank.png`;
-			document.getElementById(`nextBossName${(n+1)}`).innerHTML= "";
+
+		if (n == 1) {
+			document.getElementById(`nextBoss${n}`).src= `imgs/blank.png`;
+			document.getElementById(`nextBossName${n}`).innerHTML= "";
 		}
 		document.getElementById(`nextTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
 		
@@ -559,9 +561,9 @@
 			//console.log(`${formatSeconds(dateDiff)} ${PreviousBoss[1][b]["name"]}`)
 			n++;
 		}
-		if (n == 0) {
-			document.getElementById(`previousBoss${(n+1)}`).src= `imgs/blank.png`;
-			document.getElementById(`previousBossName${(n+1)}`).innerHTML= "";
+		if (n == 1) {
+			document.getElementById(`previousBoss${n}`).src= `imgs/blank.png`;
+			document.getElementById(`previousBossName${n}`).innerHTML= "";
 		}
 		document.getElementById(`previousTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
 
