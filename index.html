@@ -338,8 +338,8 @@
 		
 		//console.log(indexTime)
 		//indexTime position from length
-		//-1 = next day boss timer
-		//-2 = previous day boss timer
+		//-2 = next day boss timer
+		//-3 = previous day boss timer
 		//fix boss in next and previous day
 		
 		for(var bossTime in bossdata[weekDay]) {
@@ -406,11 +406,11 @@
 				PreviousBoss = bossdata[weekDay][indexTime[index-1]] == null ? bossdata[weekDay-1][indexTime[indexSize-1]] : bossdata[weekDay][indexTime[index-2]];
 				NextBoss = bossdata[weekDay][indexTime[index]] == null ? bossdata[weekDay][indexTime[index+1]] : bossdata[weekDay][indexTime[index]];*/
 				if (index == 0 ) {
-					PreviousBoss[0] = indexTime[indexSize-2];
-					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-2]];
+					PreviousBoss[0] = indexTime[indexSize-3];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-3]];
 				} else {
 					for(var k = (index-1); k >= 0; k--) {
-						if (bossdata[weekDay][indexTime[k]] != null && bossdata[weekDay][indexTime[k]] != undefined) {
+						if (bossdata[weekDay][indexTime[k]].length > 0) {
 							PreviousBoss[0] = indexTime[k];
 							PreviousBoss[1] = bossdata[weekDay][indexTime[k]];
 							break;
@@ -432,7 +432,7 @@
 					NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-2]];
 				} else {
 					for(var k = (index+1); k <= (indexSize-2); k++) {
-						if (bossdata[weekDay][indexTime[k]] != null || bossdata[weekDay][indexTime[k]] != undefined) {
+						if (bossdata[weekDay][indexTime[k]].length > 0) {
 							NextBoss[0]	= indexTime[k];
 							NextBoss[1] = bossdata[weekDay][indexTime[k]];
 							break;
