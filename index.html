@@ -41,12 +41,12 @@
 <table style="margin-left: auto; margin-right: auto;" width="1250">
 <tbody>
 <tr>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="previousBoss0" width="64" height="64" /></td>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="previousBoss1" width="64" height="64" /></td>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="currentBoss0" width="360" height="360"/></td>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="currentBoss1" width="360" height="360"/></td>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="nextBoss0" width="64" height="64" /></td>
-<td valign="bottom" align="center"><img src="imgs\blank.png" id="nextBoss1" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="previousBoss0" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="previousBoss1" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="currentBoss0" width="360" height="360"/></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="currentBoss1" width="360" height="360"/></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="nextBoss0" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs/blank.png" id="nextBoss1" width="64" height="64" /></td>
 </tr>
 <tr>
 <td id="previousBossName0" width="12.5%" valign="middle" align="center">&nbsp;</td>
@@ -355,8 +355,8 @@
 					n++;
 				}
 				if (n == 0) {
-					document.getElementById(`currentBoss${n+1}`).src= `imgs\blank.png`;
-					document.getElementById(`currentBossName${n+1}`).innerHTML= "";
+					document.getElementById(`currentBoss${(n+1)}`).src= `imgs/blank.png`;
+					document.getElementById(`currentBossName${(n+1)}`).innerHTML= "";
 				}
 
 				document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
@@ -405,6 +405,15 @@
 				PreviousBoss = bossdata[weekDay][indexTime[index-1]] == null ? bossdata[weekDay-1][indexTime[indexSize-1]] : bossdata[weekDay][indexTime[index-2]];
 				NextBoss = bossdata[weekDay][indexTime[index]] == null ? bossdata[weekDay][indexTime[index+1]] : bossdata[weekDay][indexTime[index]];*/
 				
+				/*for(var k = index; k >= 0; k--) {
+					console.log(indexTime[k])
+					if (bossdata[weekDay][indexTime[k]] != null && bossdata[weekDay][indexTime[k]] != undefined) {
+						PreviousBoss[0] = indexTime[index-1];
+						PreviousBoss[1] = bossdata[weekDay][indexTime[index-1]];
+						break;
+					}
+				}*/
+				
 				if (bossdata[weekDay][indexTime[index-1]] == null || bossdata[weekDay][indexTime[index-1]] == undefined) {
 					PreviousBoss[0] = indexTime[indexSize-2];
 					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-2]];
@@ -448,7 +457,7 @@
 						bossType = bossdata[weekDay][bossTime][b]["type"];
 					}
 					if (n == 0) {
-						document.getElementById(`currentBoss${n}`).src= `imgs\blank.png`;
+						document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
 						document.getElementById(`currentBossName${n}`).innerHTML= "";
 					}
 
@@ -517,8 +526,8 @@
 			n++;
 		}
 		if (n == 0) {
-			document.getElementById(`nextBoss${n+1}`).src= `imgs\blank.png`;
-			document.getElementById(`nextBossName${n+1}`).innerHTML= "";
+			document.getElementById(`nextBoss${(n+1)}`).src= `imgs/blank.png`;
+			document.getElementById(`nextBossName${(n+1)}`).innerHTML= "";
 		}
 		document.getElementById(`nextTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
 		
@@ -533,8 +542,8 @@
 			n++;
 		}
 		if (n == 0) {
-			document.getElementById(`previousBoss${n+1}`).src= `imgs\blank.png`;
-			document.getElementById(`previousBossName${n+1}`).innerHTML= "";
+			document.getElementById(`previousBoss${(n+1)}`).src= `imgs/blank.png`;
+			document.getElementById(`previousBossName${(n+1)}`).innerHTML= "";
 		}
 		document.getElementById(`previousTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
 
