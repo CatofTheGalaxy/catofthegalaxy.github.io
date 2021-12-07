@@ -325,16 +325,16 @@
 		for(var bossTime in bossdata[weekDay+1]) {
 			if (bossdata[weekDay+1][bossTime].length > 0) {
 				indexTime.push(bossTime);
-				n++;
-				if (n >= 2) {
-					break;
-				}
+				n++; if (n >= 2) { break; }
 			}
 		}
 		
 		var bossTime_tmp = [];
 		for(var bossTime in bossdata[weekDay-1]) {
-			bossTime_tmp.push(bossTime);
+			if (bossdata[weekDay+1][bossTime].length > 0) {
+				indexTime.push(bossTime);
+				break;
+			}
 		}
 		indexTime.push(bossTime_tmp.pop());
 		bossTime_tmp = null;
@@ -358,7 +358,6 @@
 					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
 					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
 					bossType = bossdata[weekDay][bossTime][b]["type"];
-					//s += 
 					n++;
 				}
 				if (n == 1) {
