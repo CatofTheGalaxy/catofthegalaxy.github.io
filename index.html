@@ -332,8 +332,7 @@
 		var bossTime_tmp = [];
 		for(var bossTime in bossdata[weekDay-1]) {
 			if (bossdata[weekDay+1][bossTime].length > 0) {
-				indexTime.push(bossTime);
-				break;
+				bossTime_tmp.push(bossTime);
 			}
 		}
 		indexTime.push(bossTime_tmp.pop());
@@ -344,8 +343,8 @@
 		
 		//console.log(indexTime)
 		//indexTime position from length
-		//-2 = next day boss timer
-		//-4 = previous day boss timer
+		//-2 -3 = next day boss timer
+		//-1 = previous day boss timer
 		//fix boss in next and previous day
 		
 		for(var bossTime in bossdata[weekDay]) {
@@ -407,8 +406,8 @@
 				}
 
 				if (index == 0 ) {
-					PreviousBoss[0] = indexTime[indexSize-4];
-					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-4]];
+					PreviousBoss[0] = indexTime[indexSize-1];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
 				} else {
 					for(var k = (index-1); k >= 0; k--) {
 						if (bossdata[weekDay][indexTime[k]].length > 0) {
