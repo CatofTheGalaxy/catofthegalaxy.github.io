@@ -1,0 +1,594 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" sizes="180x180" href="imgs/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-16x16.png">
+<link rel="manifest" href="imgs/site.webmanifest">
+<title>BDO-TH World Boss Timer</title>
+</head>
+<style>
+	h1 {
+		font-size: 100px;
+		color: #FFFFFF;
+		display: flex;
+		justify-content: center;
+		margin: 0;
+	}
+	h2 {
+		font-size: 35px;
+		color: #FFFFFF;
+		display: flex;
+		justify-content: center;
+		margin: 0;
+	}
+	h3 {
+		font-size: 25px;
+		color: #FFFFFF;
+		display: flex;
+		justify-content: center;
+		margin: 0;
+	}
+	h4 {
+		font-size: 15px;
+		color: #FFFFFF;
+		display: flex;
+		justify-content: center;
+		margin: 0;
+	}
+</style>
+<body bgcolor="#181A1B">
+<table style="margin-left: auto; margin-right: auto;" width="1250">
+<tbody>
+<tr>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="previousBoss0" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="previousBoss1" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="currentBoss0" width="360" height="360"/></td>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="currentBoss1" width="360" height="360"/></td>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="nextBoss0" width="64" height="64" /></td>
+<td valign="bottom" align="center"><img src="imgs\blank.png" id="nextBoss1" width="64" height="64" /></td>
+</tr>
+<tr>
+<td id="previousBossName0" width="12.5%" valign="middle" align="center">&nbsp;</td>
+<td id="previousBossName1" width="12.5%" valign="middle" align="center">&nbsp;</td>
+<td id="currentBossName0" width="25%" valign="middle" align="center">&nbsp;</td>
+<td id="currentBossName1" width="25%" valign="middle" align="center">&nbsp;</td>
+<td id="nextBossName0" width="12.5%" valign="middle" align="center">&nbsp;</td>
+<td id="nextBossName1" width="12.5%" valign="middle" align="center">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" id="previousTimer" valign="top" align="center"></td>
+<td colspan="2" id="currentTimer" valign="top" align="center"></td>
+<td colspan="2" id="nextTimer" valign="top" align="center"></td>
+</tr>
+</tbody>
+</table>
+</body>
+
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto;" border="1" width="1250">
+<tbody>
+<tr>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle; vertical-align: middle;"><span style="color: #ffffff;"><strong>เวลา</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>00:30</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>06:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>10:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>14:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>15:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>19:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>20:00</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>23:00</strong></span></h3>
+</td>
+</tr>
+<tr style="height: 10px; text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 10px;">
+<h3 style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;"><strong>อาทิตย์</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 10px;"><span style="color: #ffffff;">คจาคาร์</span></td>
+<td style="width: 11.1111%; height: 10px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 10px;">
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 10px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 10px;">
+<p><span style="color: #ffffff;">เบลล์</span></p>
+</td>
+<td style="height: 10px; width: 11.1111%;">
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 160px;" rowspan="6">
+<p><span style="color: #ffffff;">สงคราม</span></p>
+<p><span style="color: #ffffff;">ฐาน</span></p>
+</td>
+<td style="width: 11.1111%; height: 10px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+</tr>
+<tr style="text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 78px;">
+<h3><span style="color: #ffffff;"><strong>จันทร์</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 78px;"><span style="color: #ffffff;">คูทุม</span></td>
+<td style="width: 11.1111%; height: 78px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 78px;">
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 78px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 78px;">
+<p>&nbsp;</p>
+</td>
+<td style="width: 11.1111%; height: 78px;">
+<p><span style="color: #ffffff;">คจาจาร์</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 78px;"><span style="color: #ffffff;">โอฟิน</span></td>
+</tr>
+<tr style="text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 18px;">
+<h3><span style="color: #ffffff;"><strong>อังคาร</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">นูเวอร์</span></td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">มูลัคคา</span></p>
+<p><span style="color: #ffffff;">กวินท์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">กามอส</span></td>
+</tr>
+<tr style="text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 18px;">
+<h3><span style="color: #ffffff;"><strong>พุธ</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+<p><span style="color: #ffffff;">โอฟิน</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">เบลล์</span></td>
+</tr>
+<tr style="text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 18px;">
+<h3><span style="color: #ffffff;"><strong>พฤหัส</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">คูทุม</span></td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">กามอส</span></td>
+</tr>
+<tr style="text-align: center; vertical-align: middle;">
+<td style="width: 11.1111%; height: 18px;">
+<h3><span style="color: #ffffff;"><strong>ศุกร์</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">นูเวอร์</span></td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px;"><span style="color: #ffffff;">โอฟิน</span></td>
+</tr>
+<tr>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;">
+<h3><span style="color: #ffffff;"><strong>เสาร์</strong></span></h3>
+</td>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;"><span style="color: #ffffff;">คารานด้า</span></td>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;">&nbsp;</td>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;">
+<p><span style="color: #ffffff;">คูทุม</span></p>
+<p><span style="color: #ffffff;">คจาคาร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;">
+<p><span style="color: #ffffff;">คารานด้า</span></p>
+<p><span style="color: #ffffff;">นูเวอร์</span></p>
+</td>
+<td style="width: 11.1111%; height: 18px; text-align: center; vertical-align: middle;"><span style="color: #ffffff;">กามอส</span></td>
+<td style="width: 11.1111%; height: 18px;">
+<p style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;">มูลัคคา</span></p>
+<p style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;">กวินท์&nbsp;</span></p>
+</td>
+<td style="width: 22.2222%; height: 18px;" colspan="2">
+<p style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;">สงคราม</span></p>
+<p style="text-align: center; vertical-align: middle;"><span style="color: #ffffff;">ปราสาท</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+</iframe> 
+<!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=m27615Cy"></script> -->
+<script src="js/boss.js"></script>
+<script src="js/audio5.js"></script>
+<script>
+	function initAudio () {
+		var audio5js = new Audio5js({
+				ready: function () {
+				this.load('audio/bossappear.mp3');
+				this.play();
+			}
+		});
+	}
+    initAudio();
+ </script>
+<script>
+
+
+			//responsiveVoice.allowSpeechClicked(true);
+			//responsiveVoice.setDefaultVoice("Thai Female");
+			//responsiveVoice.speak("ทดสอบ");
+			
+window.onload = function() {
+  var context = new AudioContext();
+}
+
+	function addZero(n) {
+		if (n <= 9) {n = '0' + n};
+		return n;
+	}
+	
+	function completeDate(d) {
+		const ymd = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()),
+		hms = addZero(d.getHours()) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
+		return new Date(ymd + ' ' + hms);
+	}
+	
+	function formatSeconds(seconds) {
+		var date = new Date(1970,0,1);
+		date.setSeconds(seconds);
+		return date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+	}
+	
+	function playSound(p) {
+		audio = new Audio(p);
+		//audio.volume = customVolume/100;
+		audio.volume = 1;
+		audio.play();
+	}
+	
+	//playSound('sounds/5minboss.mp3');
+	
+	setInterval(function() {
+		var date = new Date();
+		
+		//Previous 
+		date.setDate(date.getDate() - 1);
+		var Previous_Date = completeDate(date);
+
+		//Current
+		date.setDate(date.getDate() + 1);
+		var Current_Date = completeDate(date);
+
+		//Next
+		date.setDate(date.getDate() + 1);
+		var Next_Date = completeDate(date);
+		
+		var indexTime = [], PreviousBoss = [], NextBoss = [], indexSize, dateDiff, index = 0, bossCount = 0, n = 0, bossType;
+		var weekDay = Current_Date.getDay();
+		
+		for(var bossTime in bossdata[weekDay]) {
+			indexTime.push(bossTime);
+		}
+		
+		for(var bossTime in bossdata[weekDay+1]) {
+			indexTime.push(bossTime);
+			break;
+		}
+		
+		var bossTime_tmp = [];
+		for(var bossTime in bossdata[weekDay-1]) {
+			bossTime_tmp.push(bossTime);
+		}
+		indexTime.push(bossTime_tmp.pop());
+		bossTime_tmp = null;
+		
+		indexSize = indexTime.length;
+		n = 0;
+		
+		//indexTime position from length
+		//-1 = next day boss timer
+		//-2 = previous day boss timer
+		//fix boss in next and previous day
+		
+		for(var bossTime in bossdata[weekDay]) {
+			dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${bossTime}`);
+			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+			
+			if (dateDiff > 0 && bossdata[weekDay][bossTime].length > 0) {
+				for(var b in bossdata[weekDay][bossTime]) {
+					//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`)
+					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
+					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
+					bossType = bossdata[weekDay][bossTime][b]["type"];
+					//s += 
+					n++;
+				}
+				if (n == 0) {
+					document.getElementById(`currentBoss${n+1}`).src= `imgs\blank.png`;
+					document.getElementById(`currentBossName${n+1}`).innerHTML= "";
+				}
+
+				document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
+				
+				//Alert zone
+				switch(dateDiff) {
+					case 1800:
+						switch(bossType) {
+							case "world-boss": playSound('sounds/30minboss.mp3'); break;
+							case "war-node": playSound('sounds/30minnode.mp3'); break;
+							case "war-castle": playSound('sounds/30mincastle.mp3'); break;
+						}
+						break;
+					case 900:
+						switch(bossType) {
+							case "world-boss": playSound('sounds/15minboss.mp3'); break;
+							case "war-node": playSound('sounds/15minnode.mp3'); break;
+							case "war-castle": playSound('sounds/15mincastle.mp3'); break;
+						}
+						break;
+					case 600:
+						switch(bossType) {
+							case "world-boss": playSound('sounds/10minboss.mp3'); break;
+							case "war-node": playSound('sounds/10minnode.mp3'); break;
+							case "war-castle": playSound('sounds/10mincastle.mp3'); break;
+						}
+						break;
+					case 300:
+						switch(bossType) {
+							case "world-boss": playSound('sounds/5minboss.mp3'); break;
+							case "war-node": playSound('sounds/5minnode.mp3'); break;
+							case "war-castle": playSound('sounds/5mincastle.mp3'); break;
+						}
+						break;
+					case 0:
+						switch(bossType) {
+							case "world-boss": playSound('sounds/bossappear.mp3'); break;
+							case "war-node": playSound('sounds/nodewar.mp3'); break;
+							case "war-castle": playSound('sounds/castlewar.mp3'); break;
+						}
+						break;
+				}
+
+				/*
+				CurrentBoss = bossdata[weekDay][bossTime];
+				PreviousBoss = bossdata[weekDay][indexTime[index-1]] == null ? bossdata[weekDay-1][indexTime[indexSize-1]] : bossdata[weekDay][indexTime[index-2]];
+				NextBoss = bossdata[weekDay][indexTime[index]] == null ? bossdata[weekDay][indexTime[index+1]] : bossdata[weekDay][indexTime[index]];*/
+				
+				if (bossdata[weekDay][indexTime[index-1]] == null || bossdata[weekDay][indexTime[index-1]] == undefined) {
+					PreviousBoss[0] = indexTime[indexSize-2];
+					PreviousBoss[1] = bossdata[weekDay-2][indexTime[indexSize-2]];
+				} else {
+					PreviousBoss[0] = indexTime[index-1];
+					PreviousBoss[1] = bossdata[weekDay][indexTime[index-1]];
+				}
+				
+				if (bossdata[weekDay][indexTime[index]] == null || bossdata[weekDay][indexTime[index]]  == undefined) {
+					NextBoss[0] = indexTime[index+2];
+					NextBoss[1] = bossdata[weekDay][indexTime[index+2]];
+				} else {
+					NextBoss[0]	= indexTime[index+1];
+					NextBoss[1] = bossdata[weekDay][indexTime[index+1]];
+				}
+
+				/*
+				CurrentBoss = bossTime;
+				PreviousBoss = bossdata[weekDay][indexTime[index-1]] == null ? indexTime[indexSize-1] : indexTime[index-2];
+				NextBoss = bossdata[weekDay][indexTime[index]] == null ? indexTime[index+2] : indexTime[index+1];*/
+				bossCount++;
+				break;
+			}
+			index++;
+		}
+
+		//Next boss if next day
+		if (bossCount == 0) {
+			weekDay++;
+			if (weekDay > 6) { weekDay = 0;}
+			for(var bossTime in bossdata[weekDay]) {
+				dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${bossTime}`);
+				dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+				
+				if (dateDiff > 0 && bossdata[weekDay][bossTime].length > 0) {
+					for(var b in bossdata[weekDay][bossTime]) {
+						//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`);
+						
+						document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
+						document.getElementById(`currentBossName${n}`).innerHTML= `<h3>bossdata[weekDay][bossTime][b]["name"]`;
+						bossType = bossdata[weekDay][bossTime][b]["type"];
+					}
+					if (n == 0) {
+						document.getElementById(`currentBoss${n}`).src= `imgs\blank.png`;
+						document.getElementById(`currentBossName${n}`).innerHTML= "";
+					}
+
+					document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
+					
+					//Alert zone
+					switch(dateDiff) {
+						case 1800:
+							switch(bossType) {
+								case "world-boss": playSound('sounds/30minboss.mp3'); break;
+								case "war-node": playSound('sounds/30minnode.mp3'); break;
+								case "war-castle": playSound('sounds/30mincastle.mp3'); break;
+							}
+							break;
+						case 900:
+							switch(bossType) {
+								case "world-boss": playSound('sounds/15minboss.mp3'); break;
+								case "war-node": playSound('sounds/15minnode.mp3'); break;
+								case "war-castle": playSound('sounds/15mincastle.mp3'); break;
+							}
+							break;
+						case 600:
+							switch(bossType) {
+								case "world-boss": playSound('sounds/10minboss.mp3'); break;
+								case "war-node": playSound('sounds/10minnode.mp3'); break;
+								case "war-castle": playSound('sounds/10mincastle.mp3'); break;
+							}
+							break;
+						case 300:
+							switch(bossType) {
+								case "world-boss": playSound('sounds/5minboss.mp3'); break;
+								case "war-node": playSound('sounds/5minnode.mp3'); break;
+								case "war-castle": playSound('sounds/5mincastle.mp3'); break;
+							}
+							break;
+						case 0:
+							switch(bossType) {
+								case "world-boss": playSound('sounds/bossappear.mp3'); break;
+								case "war-node": playSound('sounds/nodewar.mp3'); break;
+								case "war-castle": playSound('sounds/castlewar.mp3'); break;
+							}
+							break;
+					}
+					
+						/*CurrentBoss = bossdata[weekDay][bossTime];
+						PreviousBoss = bossdata[weekDay-1][indexTime[index-1]];
+						NextBoss = bossdata[weekDay][indexTime[index+2]]; //+1 = 00:06:00 +2 = 00:10:00*/
+					CurrentBoss = bossTime;
+					PreviousBoss[0] = indexTime[index-1];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[index-1]];
+					NextBoss[0] = indexTime[index+2];
+					NextBoss[1] = bossdata[weekDay][indexTime[index+2]];
+					break;
+				}
+				
+			}
+		}
+
+		n = 0;
+		dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${NextBoss[0]}`);
+		dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+		for(var b in NextBoss[1]) {
+			document.getElementById(`nextBoss${n}`).src= NextBoss[1][b]["img"];
+			document.getElementById(`nextBossName${n}`).innerHTML= `<h4>${NextBoss[1][b]["name"]}`;
+			//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
+			n++;
+		}
+		if (n == 0) {
+			document.getElementById(`nextBoss${n+1}`).src= `imgs\blank.png`;
+			document.getElementById(`nextBossName${n+1}`).innerHTML= "";
+		}
+		document.getElementById(`nextTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
+		
+		
+		n = 0;
+		dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${PreviousBoss[0]}`);
+		dateDiff = (Current_Date.getTime() - dateDiff.getTime()) / 1000;
+		for(var b in PreviousBoss[1]) {
+			document.getElementById(`previousBoss${n}`).src= PreviousBoss[1][b]["img"];
+			document.getElementById(`previousBossName${n}`).innerHTML= `<h4>${PreviousBoss[1][b]["name"]}`;
+			//console.log(`${formatSeconds(dateDiff)} ${PreviousBoss[1][b]["name"]}`)
+			n++;
+		}
+		if (n == 0) {
+			document.getElementById(`previousBoss${n+1}`).src= `imgs\blank.png`;
+			document.getElementById(`previousBossName${n+1}`).innerHTML= "";
+		}
+		document.getElementById(`previousTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
+
+
+
+	}, 1000);
+
+
+	//Value check
+	//console.log(PreviousBoss)
+	//console.log(NextBoss)
+	//console.log(`${SizeTime}`)
+	
+	
+	
+	/*
+	TEST Data
+	data position note
+	object	object		array		object
+	weekDay	spawnTime	bossArray	bossData
+	
+	for(var d in bossdata) {
+		for(var t in bossdata[d]) {
+			for(var b in bossdata[d][t]) {
+				for(var p in bossdata[d][t][b]) {
+				console.log(`${d} ${t} ${bossdata[d][t][b]["name"]}`)
+					for(var n in bossdata[d][t][b]) {
+						console.log(bossdata[d][t][b][n])
+					
+					}
+				}
+			}
+		}
+	
+	}
+*/
+	
+
+	
+</script>
+</html>
