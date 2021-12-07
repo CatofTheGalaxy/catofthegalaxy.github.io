@@ -447,6 +447,7 @@
 			for(var b in bossdata[weekDay][indexTime[indexSize-3]]) {
 				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][indexTime[indexSize-3]][b]["img"];
 				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][indexTime[indexSize-3]][b]["name"]}`;
+				bossType = bossdata[weekDay][indexTime[indexSize-3]][b]["type"];
 				//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 				n++;
 			}
