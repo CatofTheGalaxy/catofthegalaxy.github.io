@@ -336,6 +336,7 @@
 		indexSize = indexTime.length;
 		n = 0;
 		
+		//console.log(indexTime)
 		//indexTime position from length
 		//-1 = next day boss timer
 		//-2 = previous day boss timer
@@ -404,31 +405,48 @@
 				CurrentBoss = bossdata[weekDay][bossTime];
 				PreviousBoss = bossdata[weekDay][indexTime[index-1]] == null ? bossdata[weekDay-1][indexTime[indexSize-1]] : bossdata[weekDay][indexTime[index-2]];
 				NextBoss = bossdata[weekDay][indexTime[index]] == null ? bossdata[weekDay][indexTime[index+1]] : bossdata[weekDay][indexTime[index]];*/
-				
-				/*for(var k = index; k >= 0; k--) {
-					console.log(indexTime[k])
-					if (bossdata[weekDay][indexTime[k]] != null && bossdata[weekDay][indexTime[k]] != undefined) {
-						PreviousBoss[0] = indexTime[index-1];
-						PreviousBoss[1] = bossdata[weekDay][indexTime[index-1]];
-						break;
+				if (index == 0 ) {
+					PreviousBoss[0] = indexTime[indexSize-2];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-2]];
+				} else {
+					for(var k = (index-1); k >= 0; k--) {
+						if (bossdata[weekDay][indexTime[k]] != null && bossdata[weekDay][indexTime[k]] != undefined) {
+							PreviousBoss[0] = indexTime[k];
+							PreviousBoss[1] = bossdata[weekDay][indexTime[k]];
+							break;
+						}
 					}
-				}*/
+				}
 				
-				if (bossdata[weekDay][indexTime[index-1]] == null || bossdata[weekDay][indexTime[index-1]] == undefined) {
+				/*if (bossdata[weekDay][indexTime[index-1]] == null || bossdata[weekDay][indexTime[index-1]] == undefined) {
 					PreviousBoss[0] = indexTime[indexSize-2];
 					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-2]];
 				} else {
 					PreviousBoss[0] = indexTime[index-1];
 					PreviousBoss[1] = bossdata[weekDay][indexTime[index-1]];
+				}*/
+				
+
+				if (index == (indexSize-3)) {
+					NextBoss[0]	= indexTime[indexSize-2];
+					NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-2]];
+				} else {
+					for(var k = (index+1); k <= (indexSize-2); k++) {
+						if (bossdata[weekDay][indexTime[k]] != null || bossdata[weekDay][indexTime[k]] != undefined) {
+							NextBoss[0]	= indexTime[k];
+							NextBoss[1] = bossdata[weekDay][indexTime[k]];
+							break;
+						}
+					}
 				}
 				
-				if (bossdata[weekDay][indexTime[index]] == null || bossdata[weekDay][indexTime[index]]  == undefined) {
+				/*if (bossdata[weekDay][indexTime[index]] == null || bossdata[weekDay][indexTime[index]]  == undefined) {
 					NextBoss[0] = indexTime[index+2];
 					NextBoss[1] = bossdata[weekDay][indexTime[index+2]];
 				} else {
 					NextBoss[0]	= indexTime[index+1];
 					NextBoss[1] = bossdata[weekDay][indexTime[index+1]];
-				}
+				}*/
 
 				/*
 				CurrentBoss = bossTime;
