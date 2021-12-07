@@ -407,7 +407,7 @@
 				
 				if (bossdata[weekDay][indexTime[index-1]] == null || bossdata[weekDay][indexTime[index-1]] == undefined) {
 					PreviousBoss[0] = indexTime[indexSize-2];
-					PreviousBoss[1] = bossdata[weekDay-2][indexTime[indexSize-2]];
+					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-2]];
 				} else {
 					PreviousBoss[0] = indexTime[index-1];
 					PreviousBoss[1] = bossdata[weekDay][indexTime[index-1]];
