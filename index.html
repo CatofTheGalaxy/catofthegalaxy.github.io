@@ -361,18 +361,18 @@
 		for(var bossTime in bossdata[weekDay+1]) {
 			if (bossdata[weekDay+1][bossTime].length > 0) {
 				indexTime.push(bossTime);
-				n++; if (n >= 2) { break; }
+				if (n >= 1) { break; }
+				n++;
 			}
 		}
-		
-		var bossTime_tmp = [];
-		for(var bossTime in bossdata[weekDay-1]) {
-			if (bossdata[weekDay+1][bossTime].length > 0) {
-				bossTime_tmp.push(bossTime);
+
+		var tmp = Object.keys(bossdata[weekDay-1]);
+		for (var k = (tmp.length-1); k >= 0; k--) {
+			if (bossdata[weekDay-1][tmp[k]].length > 0) {
+				indexTime.push(tmp[k]);
+				break;
 			}
 		}
-		indexTime.push(bossTime_tmp.pop());
-		bossTime_tmp = null;
 		
 		indexSize = indexTime.length;
 		n = 0;
