@@ -352,6 +352,7 @@
 		var indexTime = [], PreviousBoss = [], NextBoss = [], indexSize, dateDiff, index = 0, bossCount = 0, n = 0, bossType;
 		var weekDay = Current_Date.getDay();
 		
+		//index build *need to know boss position for previous and next
 		for(var bossTime in bossdata[weekDay]) {
 			indexTime.push(bossTime);
 		}
@@ -383,97 +384,97 @@
 		//fix boss in next and previous day
 		
 		for(var bossTime in bossdata[weekDay]) {
-			dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${bossTime}`);
-			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
-			
-			if (dateDiff > 0 && bossdata[weekDay][bossTime].length > 0) {
-				for(var b in bossdata[weekDay][bossTime]) {
-					//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`)
-					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
-					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
-					bossType = bossdata[weekDay][bossTime][b]["type"];
-					n++;
-				}
-				if (n == 1) {
-					document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
-					document.getElementById(`currentBossName${n}`).innerHTML= "";
-				}
-
-				document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
-				
-				//Alert zone
-				switch(dateDiff) {
-					case 1800:
-						switch(bossType) {
-							case "world-boss": playSound('audio/30minboss.mp3'); break;
-							case "war-node": playSound('audio/30minnode.mp3'); break;
-							case "war-castle": playSound('audio/30mincastle.mp3'); break;
-						}
-						break;
-					case 900:
-						switch(bossType) {
-							case "world-boss": playSound('audio/15minboss.mp3'); break;
-							case "war-node": playSound('audio/15minnode.mp3'); break;
-							case "war-castle": playSound('audio/15mincastle.mp3'); break;
-						}
-						break;
-					case 600:
-						switch(bossType) {
-							case "world-boss": playSound('audio/10minboss.mp3'); break;
-							case "war-node": playSound('audio/10minnode.mp3'); break;
-							case "war-castle": playSound('audio/10mincastle.mp3'); break;
-						}
-						break;
-					case 300:
-						switch(bossType) {
-							case "world-boss": playSound('audio/5minboss.mp3'); break;
-							case "war-node": playSound('audio/5minnode.mp3'); break;
-							case "war-castle": playSound('audio/5mincastle.mp3'); break;
-						}
-						break;
-					case 0:
-						switch(bossType) {
-							case "world-boss": playSound('audio/bossappear.mp3'); break;
-							case "war-node": playSound('audio/nodewar.mp3'); break;
-							case "war-castle": playSound('audio/castlewar.mp3'); break;
-						}
-						break;
-				}
-
-				if (index == 0 ) {
-					PreviousBoss[0] = indexTime[indexSize-1];
-					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
-				} else {
-					for(var k = (index-1); k >= 0; k--) {
-						if (bossdata[weekDay][indexTime[k]].length > 0) {
-							PreviousBoss[0] = indexTime[k];
-							PreviousBoss[1] = bossdata[weekDay][indexTime[k]];
+			if (bossdata[weekDay][bossTime].length > 0) {
+				dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${bossTime}`);
+				dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+				if (dateDiff > 0) {
+					for(var b in bossdata[weekDay][bossTime]) {
+						//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`)
+						document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
+						document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
+						bossType = bossdata[weekDay][bossTime][b]["type"];
+						n++;
+					}
+					if (n == 1) {
+						document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
+						document.getElementById(`currentBossName${n}`).innerHTML= "";
+					}
+					document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
+					
+					//Alert zone
+					switch(dateDiff) {
+						case 1800:
+							switch(bossType) {
+								case "world-boss": playSound('audio/30minboss.mp3'); break;
+								case "war-node": playSound('audio/30minnode.mp3'); break;
+								case "war-castle": playSound('audio/30mincastle.mp3'); break;
+							}
 							break;
+						case 900:
+							switch(bossType) {
+								case "world-boss": playSound('audio/15minboss.mp3'); break;
+								case "war-node": playSound('audio/15minnode.mp3'); break;
+								case "war-castle": playSound('audio/15mincastle.mp3'); break;
+							}
+							break;
+						case 600:
+							switch(bossType) {
+								case "world-boss": playSound('audio/10minboss.mp3'); break;
+								case "war-node": playSound('audio/10minnode.mp3'); break;
+								case "war-castle": playSound('audio/10mincastle.mp3'); break;
+							}
+							break;
+						case 300:
+							switch(bossType) {
+								case "world-boss": playSound('audio/5minboss.mp3'); break;
+								case "war-node": playSound('audio/5minnode.mp3'); break;
+								case "war-castle": playSound('audio/5mincastle.mp3'); break;
+							}
+							break;
+						case 0:
+							switch(bossType) {
+								case "world-boss": playSound('audio/bossappear.mp3'); break;
+								case "war-node": playSound('audio/nodewar.mp3'); break;
+								case "war-castle": playSound('audio/castlewar.mp3'); break;
+							}
+							break;
+					}
+
+					if (index == 0 ) {
+						PreviousBoss[0] = indexTime[indexSize-1];
+						PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
+					} else {
+						for(var k = (index-1); k >= 0; k--) {
+							if (bossdata[weekDay][indexTime[k]].length > 0) {
+								PreviousBoss[0] = indexTime[k];
+								PreviousBoss[1] = bossdata[weekDay][indexTime[k]];
+								break;
+							}
 						}
 					}
-				}
-				
-				//console.log(index + " " + (indexSize-4))
-				if (index == (indexSize-4)) {
-					NextBoss[0]	= indexTime[indexSize-3];
-					NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-3]];
-				} else {
-					for(var k = (index+1); k <= (indexSize-3); k++) {
-						if (bossdata[weekDay][indexTime[k]].length > 0) {
-							NextBoss[0]	= indexTime[k];
-							NextBoss[1] = bossdata[weekDay][indexTime[k]];
-							break;
+					
+					//console.log(index + " " + (indexSize-4))
+					if (index == (indexSize-4)) {
+						NextBoss[0]	= indexTime[indexSize-3];
+						NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-3]];
+					} else {
+						for(var k = (index+1); k <= (indexSize-3); k++) {
+							if (bossdata[weekDay][indexTime[k]].length > 0) {
+								NextBoss[0]	= indexTime[k];
+								NextBoss[1] = bossdata[weekDay][indexTime[k]];
+								break;
+							}
 						}
 					}
+					
+					bossCount++;
+					break;
 				}
-				
-				bossCount++;
-				break;
 			}
 			index++;
 		}
 		
-		//Next boss if next day
+		//Fix next day boss
 		if (bossCount == 0) {
 			weekDay++; n=0;
 			if (weekDay > 6) { weekDay = 0;}
@@ -533,75 +534,6 @@
 			PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
 			NextBoss[0] = indexTime[indexSize-2];
 			NextBoss[1] = bossdata[weekDay][indexTime[indexSize-2]];
-
-			/*
-			for(var bossTime in bossdata[weekDay]) {
-				dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${bossTime}`);
-				dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
-				
-				if (dateDiff > 0 && bossdata[weekDay][bossTime].length > 0) {
-					for(var b in bossdata[weekDay][bossTime]) {
-						//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`);
-						
-						document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
-						document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
-						bossType = bossdata[weekDay][bossTime][b]["type"];
-						n++;
-					}
-					if (n == 1) {
-						document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
-						document.getElementById(`currentBossName${n}`).innerHTML= "";
-					}
-
-					document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
-					
-					//Alert zone
-					switch(dateDiff) {
-						case 1800:
-							switch(bossType) {
-								case "world-boss": playSound('audio/30minboss.mp3'); break;
-								case "war-node": playSound('audio/30minnode.mp3'); break;
-								case "war-castle": playSound('audio/30mincastle.mp3'); break;
-							}
-							break;
-						case 900:
-							switch(bossType) {
-								case "world-boss": playSound('audio/15minboss.mp3'); break;
-								case "war-node": playSound('audio/15minnode.mp3'); break;
-								case "war-castle": playSound('audio/15mincastle.mp3'); break;
-							}
-							break;
-						case 600:
-							switch(bossType) {
-								case "world-boss": playSound('audio/10minboss.mp3'); break;
-								case "war-node": playSound('audio/10minnode.mp3'); break;
-								case "war-castle": playSound('audio/10mincastle.mp3'); break;
-							}
-							break;
-						case 300:
-							switch(bossType) {
-								case "world-boss": playSound('audio/5minboss.mp3'); break;
-								case "war-node": playSound('audio/5minnode.mp3'); break;
-								case "war-castle": playSound('audio/5mincastle.mp3'); break;
-							}
-							break;
-						case 0:
-							switch(bossType) {
-								case "world-boss": playSound('audio/bossappear.mp3'); break;
-								case "war-node": playSound('audio/nodewar.mp3'); break;
-								case "war-castle": playSound('audio/castlewar.mp3'); break;
-							}
-							break;
-					}
-					CurrentBoss = bossTime;
-					PreviousBoss[0] = indexTime[indexSize-1];
-					PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
-					NextBoss[0] = indexTime[indexSize-2];
-					NextBoss[1] = bossdata[weekDay][indexTime[indexSize-2]];
-					break;
-				}
-				
-			}*/
 		}
 
 		n = 0;
