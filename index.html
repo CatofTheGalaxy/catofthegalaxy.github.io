@@ -440,7 +440,7 @@
 							break;
 					}
 
-					if (index == 0 ) {
+					if (index == 0) {
 						PreviousBoss[0] = indexTime[indexSize-1];
 						PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
 					} else {
@@ -458,7 +458,7 @@
 						NextBoss[0]	= indexTime[indexSize-3];
 						NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-3]];
 					} else {
-						for(var k = (index+1); k <= (indexSize-3); k++) {
+						for(var k = (index+1); k <= (indexSize-4); k++) {
 							if (bossdata[weekDay][indexTime[k]].length > 0) {
 								NextBoss[0]	= indexTime[k];
 								NextBoss[1] = bossdata[weekDay][indexTime[k]];
