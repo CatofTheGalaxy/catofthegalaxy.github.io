@@ -369,9 +369,9 @@
 
 		w = weekDay-1;
 		if (w < 0) {w = 6;} //if week day is (0)Sun previous day is (6)Sat
-		tmp = Object.keys(bossdata[weekDay-1]);
+		tmp = Object.keys(bossdata[w]);
 		for (let k = (tmp.length-1); k >= 0; k--) {
-			if (bossdata[weekDay-1][tmp[k]].length > 0) {
+			if (bossdata[w][tmp[k]].length > 0) {
 				indexTime.push(tmp[k]);
 				break;
 			}
