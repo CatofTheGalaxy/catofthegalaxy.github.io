@@ -358,7 +358,7 @@
 		}
 		
 		w = weekDay+1;
-		if (w > 6) {w = 0;} //if week day is (6)Sun next day is (0)Mon
+		if (w > 6) {w = 0;} //if week day is (6)Sat next day is (0)Sun
 		for(let bossTime in bossdata[w]) {
 			if (bossdata[w][bossTime].length > 0) {
 				indexTime.push(bossTime);
@@ -368,7 +368,7 @@
 		}
 
 		w = weekDay-1;
-		if (w < 0) {w = 6;} //if week day is (0)Mon previous day is (6)Sun
+		if (w < 0) {w = 6;} //if week day is (0)Sun previous day is (6)Sat
 		tmp = Object.keys(bossdata[weekDay-1]);
 		for (let k = (tmp.length-1); k >= 0; k--) {
 			if (bossdata[weekDay-1][tmp[k]].length > 0) {
