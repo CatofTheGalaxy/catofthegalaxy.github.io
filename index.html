@@ -334,6 +334,7 @@
 	
 	//playSound('audio/5minboss.mp3');
 	
+	var listTime = [], listSize, weekDay_tmp, bossPosition;
 	setInterval(function() {
 		let date = new Date();
 		
@@ -349,144 +350,151 @@
 		date.setDate(date.getDate() + 1);
 		let Next_Date = completeDate(date);
 		
-		let indexTime = [], PreviousBoss = [], NextBoss = [], indexSize, dateDiff, index = 0, bossCount = 0, n = 0, bossType;
-		let weekDay = Current_Date.getDay(), w = 0, tmp;
+		let PreviousBoss = [], NextBoss = [], dateDiff, bossCount = 0, n = 0, bossType;
+		let weekDay = Current_Date.getDay();
 		
-		//index build *need to know boss position for previous and next
-		for(let bossTime in bossdata[weekDay]) {
-			indexTime.push(bossTime);
-		}
-		
-		w = weekDay+1;
-		if (w > 6) {w = 0;} //if week day is (6)Sat next day is (0)Sun
-		for(let bossTime in bossdata[w]) {
-			if (bossdata[w][bossTime].length > 0) {
-				indexTime.push(bossTime);
-				if (n >= 1) { break; }
-				n++;
+		if (weekDay != weekDay_tmp) {
+			//list build *need to know boss position for previous and next
+			for(let bossTime in bossdata[weekDay]) {
+				if (bossdata[weekDay][bossTime].length > 0) {
+					listTime.push(bossTime);
+				}
 			}
-		}
+			
+			let w = weekDay+1;
+			if (w > 6) {w = 0;} //if week day is (6)Sat next day is (0)Sun
+			for(let bossTime in bossdata[w]) {
+				if (bossdata[w][bossTime].length > 0) {
+					listTime.push(bossTime);
+					if (n >= 1) { break; }
+					n++;
+				}
+			}
 
-		w = weekDay-1;
-		if (w < 0) {w = 6;} //if week day is (0)Sun previous day is (6)Sat
-		tmp = Object.keys(bossdata[w]);
-		for (let k = (tmp.length-1); k >= 0; k--) {
-			if (bossdata[w][tmp[k]].length > 0) {
-				indexTime.push(tmp[k]);
-				break;
+			w = weekDay-1;
+			if (w < 0) {w = 6;} //if week day is (0)Sun previous day is (6)Sat
+			let tmp = Object.keys(bossdata[w]);
+			for (let k = (tmp.length-1); k >= 0; k--) {
+				if (bossdata[w][tmp[k]].length > 0) {
+					listTime.push(tmp[k]);
+					break;
+				}
 			}
+			
+			listSize = listTime.length;
+			weekDay_tmp = weekDay;
+			bossPosition = 0;
 		}
 		
-		indexSize = indexTime.length;
-		n = 0;
-		
-		//console.log(indexTime)
-		//indexTime position from length
+		//console.log(listTime)
+		//listTime position from length
+		//-4 = max boss number in day
 		//-2 -3 = next day boss timer
 		//-1 = previous day boss timer
 		//fix boss in next and previous day
 		
-		for(let bossTime in bossdata[weekDay]) {
-			if (bossdata[weekDay][bossTime].length > 0) {
-				dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${bossTime}`);
-				dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
-				if (dateDiff > 0) {
-					for(let b in bossdata[weekDay][bossTime]) {
-						//console.log(`${formatSeconds(dateDiff)} ${bossdata[weekDay][bossTime][b]["name"]}`)
-						document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][bossTime][b]["img"];
-						document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][bossTime][b]["name"]}`;
-						bossType = bossdata[weekDay][bossTime][b]["type"];
-						n++;
-					}
-					if (n == 1) {
-						document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
-						document.getElementById(`currentBossName${n}`).innerHTML= "";
-					}
-					document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
-					
-					//Alert zone
-					switch(dateDiff) {
-						case 1800:
-							switch(bossType) {
-								case "world-boss": playSound('audio/30minboss.mp3'); break;
-								case "war-node": playSound('audio/30minnode.mp3'); break;
-								case "war-castle": playSound('audio/30mincastle.mp3'); break;
-							}
-							break;
-						case 900:
-							switch(bossType) {
-								case "world-boss": playSound('audio/15minboss.mp3'); break;
-								case "war-node": playSound('audio/15minnode.mp3'); break;
-								case "war-castle": playSound('audio/15mincastle.mp3'); break;
-							}
-							break;
-						case 600:
-							switch(bossType) {
-								case "world-boss": playSound('audio/10minboss.mp3'); break;
-								case "war-node": playSound('audio/10minnode.mp3'); break;
-								case "war-castle": playSound('audio/10mincastle.mp3'); break;
-							}
-							break;
-						case 300:
-							switch(bossType) {
-								case "world-boss": playSound('audio/5minboss.mp3'); break;
-								case "war-node": playSound('audio/5minnode.mp3'); break;
-								case "war-castle": playSound('audio/5mincastle.mp3'); break;
-							}
-							break;
-						case 0:
-							switch(bossType) {
-								case "world-boss": playSound('audio/bossappear.mp3'); break;
-								case "war-node": playSound('audio/nodewar.mp3'); break;
-								case "war-castle": playSound('audio/castlewar.mp3'); break;
-							}
-							break;
-					}
-
-					if (index == 0) {
-						PreviousBoss[0] = indexTime[indexSize-1];
-						PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
-					} else {
-						for(let k = (index-1); k >= 0; k--) {
-							if (bossdata[weekDay][indexTime[k]].length > 0) {
-								PreviousBoss[0] = indexTime[k];
-								PreviousBoss[1] = bossdata[weekDay][indexTime[k]];
-								break;
-							}
-						}
-					}
-					
-					//console.log(index + " " + (indexSize-4))
-					if (index == (indexSize-4)) {
-						NextBoss[0]	= indexTime[indexSize-3];
-						NextBoss[1] = bossdata[weekDay+1][indexTime[indexSize-3]];
-					} else {
-						for(let k = (index+1); k <= (indexSize-4); k++) {
-							if (bossdata[weekDay][indexTime[k]].length > 0) {
-								NextBoss[0]	= indexTime[k];
-								NextBoss[1] = bossdata[weekDay][indexTime[k]];
-								break;
-							}
-						}
-					}
-					
-					bossCount++;
-					break;
+		
+		
+		n = 0;
+		for(let i = bossPosition; i <= (listSize-4); i++) {
+			//console.log(bossdata[weekDay][listTime[i]]);
+			//console.log(listTime[i]);
+			dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${listTime[i]}`);
+			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+			if (dateDiff > 0) {
+				for(let b in bossdata[weekDay][listTime[i]]) {
+					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[i]][b]["img"];
+					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[i]][b]["name"]}`;
+					bossType = bossdata[weekDay][listTime[i]][b]["type"];
+					n++;
 				}
+				if (n == 1) {
+					document.getElementById(`currentBoss${n}`).src= `imgs/blank.png`;
+					document.getElementById(`currentBossName${n}`).innerHTML= "";
+				}
+				document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
+				//console.log(dateDiff)
+				
+				//Alert zone
+				switch(dateDiff) {
+					case 1800:
+						switch(bossType) {
+							case "world-boss": playSound('audio/30minboss.mp3'); break;
+							case "war-node": playSound('audio/30minnode.mp3'); break;
+							case "war-castle": playSound('audio/30mincastle.mp3'); break;
+						}
+						break;
+					case 900:
+						switch(bossType) {
+							case "world-boss": playSound('audio/15minboss.mp3'); break;
+							case "war-node": playSound('audio/15minnode.mp3'); break;
+							case "war-castle": playSound('audio/15mincastle.mp3'); break;
+						}
+						break;
+					case 600:
+						switch(bossType) {
+							case "world-boss": playSound('audio/10minboss.mp3'); break;
+							case "war-node": playSound('audio/10minnode.mp3'); break;
+							case "war-castle": playSound('audio/10mincastle.mp3'); break;
+						}
+						break;
+					case 300:
+						switch(bossType) {
+							case "world-boss": playSound('audio/5minboss.mp3'); break;
+							case "war-node": playSound('audio/5minnode.mp3'); break;
+							case "war-castle": playSound('audio/5mincastle.mp3'); break;
+						}
+						break;
+					case 0:
+						switch(bossType) {
+							case "world-boss": playSound('audio/bossappear.mp3'); break;
+							case "war-node": playSound('audio/nodewar.mp3'); break;
+							case "war-castle": playSound('audio/castlewar.mp3'); break;
+						}
+						break;
+				}
+				
+				if (i == 0) {
+					PreviousBoss[0] = listTime[listSize-1];
+					PreviousBoss[1] = bossdata[weekDay-1][listTime[listSize-1]];
+				} else {
+					for(let k = (i-1); k >= 0; k--) {
+						PreviousBoss[0] = listTime[k];
+						PreviousBoss[1] = bossdata[weekDay][listTime[k]];
+						break;
+					}
+				}
+					
+				//console.log(i + " " + (listSize-4))
+				if (i == (listSize-4)) {
+					NextBoss[0]	= listTime[listSize-3];
+					NextBoss[1] = bossdata[weekDay+1][listTime[listSize-3]];
+				} else {
+					for(let k = (i+1); k <= (listSize-4); k++) {
+						NextBoss[0]	= listTime[k];
+						NextBoss[1] = bossdata[weekDay][listTime[k]];
+						break;
+					}
+				}
+				
+				bossCount++;
+				break;
+			} else {
+				//update to next position *no need full loop
+				bossPosition++;
 			}
-			index++;
 		}
 		
 		//Fix next day boss
 		if (bossCount == 0) {
-			weekDay++; n=0;
+			weekDay++; n = 0;
 			if (weekDay > 6) {weekDay = 0;}
-			dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${indexTime[indexSize-3]}`);
+			dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${listTime[listSize-3]}`);
 			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
-			for(let b in bossdata[weekDay][indexTime[indexSize-3]]) {
-				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][indexTime[indexSize-3]][b]["img"];
-				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][indexTime[indexSize-3]][b]["name"]}`;
-				bossType = bossdata[weekDay][indexTime[indexSize-3]][b]["type"];
+			for(let b in bossdata[weekDay][listTime[listSize-3]]) {
+				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[listSize-3]][b]["img"];
+				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[listSize-3]][b]["name"]}`;
+				bossType = bossdata[weekDay][listTime[listSize-3]][b]["type"];
 				//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 				n++;
 			}
@@ -533,10 +541,10 @@
 					}
 					break;
 			}
-			PreviousBoss[0] = indexTime[indexSize-1];
-			PreviousBoss[1] = bossdata[weekDay-1][indexTime[indexSize-1]];
-			NextBoss[0] = indexTime[indexSize-2];
-			NextBoss[1] = bossdata[weekDay][indexTime[indexSize-2]];
+			PreviousBoss[0] = listTime[listSize-1];
+			PreviousBoss[1] = bossdata[weekDay-1][listTime[listSize-1]];
+			NextBoss[0] = listTime[listSize-2];
+			NextBoss[1] = bossdata[weekDay][listTime[listSize-2]];
 		}
 
 		n = 0;
