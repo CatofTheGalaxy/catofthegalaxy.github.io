@@ -353,7 +353,7 @@
 		let PreviousBoss = [], NextBoss = [], dateDiff, n = 0, alertType;
 		let weekDay = Current_Date.getDay();
 		
-		if (weekDay != weekDay_tmp) {
+		if (weekDay !== weekDay_tmp) {
 			//list build *need to know boss position for previous and next
 			for(let bossTime in bossdata[weekDay]) {
 				if (bossdata[weekDay][bossTime].length > 0) {
@@ -469,10 +469,10 @@
 					
 				//console.log(i + " " + (listSize-4))
 				if (i == (listSize-4)) {
-					NextBoss[0]	= listTime[listSize-3];
+					NextBoss[0] = listTime[listSize-3];
 					NextBoss[1] = bossdata[weekDay+1][listTime[listSize-3]];
 				} else {
-					NextBoss[0]	= listTime[i+1];
+					NextBoss[0] = listTime[i+1];
 					NextBoss[1] = bossdata[weekDay][listTime[i+1]];
 					/*for(let k = (i+1); k <= (listSize-4); k++) {
 						NextBoss[0]	= listTime[k];
