@@ -299,24 +299,12 @@
 </table>
 <p><center><strong><a href="https://github.com/CatofTheGalaxy/catofthegalaxy.github.io/" target="_blank"><font color="#ffffff">By Fam丶Fan丶Fan</color></strong><br><img src="imgs/github.png"/></a></center></p>
 
-<!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=m27615Cy"></script> -->
+
 <script src="js/boss.js"></script>
 <script>
-
-
-			//responsiveVoice.allowSpeechClicked(true);
-			//responsiveVoice.setDefaultVoice("Thai Female");
-			//responsiveVoice.speak("ทดสอบ");
-
 	function addZero(n) {
 		if (n <= 9) {n = '0' + n};
 		return n;
-	}
-	
-	function completeDate(d) {
-		const ymd = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()),
-		hms = addZero(d.getHours()) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
-		return new Date(ymd + ' ' + hms);
 	}
 	
 	function formatSeconds(seconds) {
@@ -331,9 +319,47 @@
 		audio.volume = 1;
 		audio.play();
 	}
-	
-	//playSound('audio/5minboss.mp3');
-	
+
+	function playAlert(dateDiff, alertType) {
+		switch(dateDiff) {
+			case 1800:
+				switch(alertType) {
+					case "world-boss": playSound('audio/30minboss.mp3'); break;
+					case "war-node": playSound('audio/30minnode.mp3'); break;
+					case "war-castle": playSound('audio/30mincastle.mp3'); break;
+				}
+				break;
+			case 900:
+				switch(alertType) {
+					case "world-boss": playSound('audio/15minboss.mp3'); break;
+					case "war-node": playSound('audio/15minnode.mp3'); break;
+					case "war-castle": playSound('audio/15mincastle.mp3'); break;
+				}
+				break;
+			case 600:
+				switch(alertType) {
+					case "world-boss": playSound('audio/10minboss.mp3'); break;
+					case "war-node": playSound('audio/10minnode.mp3'); break;
+					case "war-castle": playSound('audio/10mincastle.mp3'); break;
+				}
+				break;
+			case 300:
+				switch(alertType) {
+					case "world-boss": playSound('audio/5minboss.mp3'); break;
+					case "war-node": playSound('audio/5minnode.mp3'); break;
+					case "war-castle": playSound('audio/5mincastle.mp3'); break;
+				}
+				break;
+			case 0:
+				switch(alertType) {
+					case "world-boss": playSound('audio/bossappear.mp3'); break;
+					case "war-node": playSound('audio/nodewar.mp3'); break;
+					case "war-castle": playSound('audio/castlewar.mp3'); break;
+				}
+				break;
+		}
+	}
+
 	var listTime = [], listSize, weekDay_tmp, bossPosition;
 	setInterval(function() {
 		let date = new Date();
@@ -402,43 +428,7 @@
 				//console.log(dateDiff)
 				
 				//Alert zone
-				switch(dateDiff) {
-					case 1800:
-						switch(alertType) {
-							case "world-boss": playSound('audio/30minboss.mp3'); break;
-							case "war-node": playSound('audio/30minnode.mp3'); break;
-							case "war-castle": playSound('audio/30mincastle.mp3'); break;
-						}
-						break;
-					case 900:
-						switch(alertType) {
-							case "world-boss": playSound('audio/15minboss.mp3'); break;
-							case "war-node": playSound('audio/15minnode.mp3'); break;
-							case "war-castle": playSound('audio/15mincastle.mp3'); break;
-						}
-						break;
-					case 600:
-						switch(alertType) {
-							case "world-boss": playSound('audio/10minboss.mp3'); break;
-							case "war-node": playSound('audio/10minnode.mp3'); break;
-							case "war-castle": playSound('audio/10mincastle.mp3'); break;
-						}
-						break;
-					case 300:
-						switch(alertType) {
-							case "world-boss": playSound('audio/5minboss.mp3'); break;
-							case "war-node": playSound('audio/5minnode.mp3'); break;
-							case "war-castle": playSound('audio/5mincastle.mp3'); break;
-						}
-						break;
-					case 0:
-						switch(alertType) {
-							case "world-boss": playSound('audio/bossappear.mp3'); break;
-							case "war-node": playSound('audio/nodewar.mp3'); break;
-							case "war-castle": playSound('audio/castlewar.mp3'); break;
-						}
-						break;
-				}
+				playAlert(dateDiff, alertType);
 				
 				if (i == 0) {
 					PreviousBoss[0] = listTime[listSize-1];
@@ -491,44 +481,10 @@
 				document.getElementById(`currentBossName${n}`).innerHTML= "";
 			}
 			document.getElementById(`currentTimer`).innerHTML = `<h1>${formatSeconds(dateDiff)}`;
+			
 			//Alert zone
-			switch(dateDiff) {
-				case 1800:
-					switch(alertType) {
-						case "world-boss": playSound('audio/30minboss.mp3'); break;
-						case "war-node": playSound('audio/30minnode.mp3'); break;
-						case "war-castle": playSound('audio/30mincastle.mp3'); break;
-					}
-					break;
-				case 900:
-					switch(alertType) {
-						case "world-boss": playSound('audio/15minboss.mp3'); break;
-						case "war-node": playSound('audio/15minnode.mp3'); break;
-						case "war-castle": playSound('audio/15mincastle.mp3'); break;
-					}
-					break;
-				case 600:
-					switch(alertType) {
-						case "world-boss": playSound('audio/10minboss.mp3'); break;
-						case "war-node": playSound('audio/10minnode.mp3'); break;
-						case "war-castle": playSound('audio/10mincastle.mp3'); break;
-					}
-					break;
-				case 300:
-					switch(alertType) {
-						case "world-boss": playSound('audio/5minboss.mp3'); break;
-						case "war-node": playSound('audio/5minnode.mp3'); break;
-						case "war-castle": playSound('audio/5mincastle.mp3'); break;
-					}
-					break;
-				case 0:
-					switch(alertType) {
-						case "world-boss": playSound('audio/bossappear.mp3'); break;
-						case "war-node": playSound('audio/nodewar.mp3'); break;
-						case "war-castle": playSound('audio/castlewar.mp3'); break;
-					}
-					break;
-			}
+			playAlert(dateDiff, alertType);
+			
 			PreviousBoss[0] = listTime[listSize-1];
 			PreviousBoss[1] = bossdata[weekDay-1][listTime[listSize-1]];
 			NextBoss[0] = listTime[listSize-2];
