@@ -401,7 +401,7 @@
 			//console.log(listTime[i]);
 			dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${listTime[i]}`);
 			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
-			if (dateDiff > 0) {
+			if (dateDiff >= 0) {
 				for(let b in bossdata[weekDay][listTime[i]]) {
 					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[i]][b]["img"];
 					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[i]][b]["name"]}`;
