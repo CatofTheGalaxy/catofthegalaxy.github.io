@@ -480,7 +480,7 @@
 		//Fix next day boss
 		if (bossCount == 0) {
 			weekDay++; n=0;
-			if (weekDay > 6) { weekDay = 0;}
+			if (weekDay > 6) {weekDay = 0;}
 			dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${indexTime[indexSize-3]}`);
 			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
 			for(let b in bossdata[weekDay][indexTime[indexSize-3]]) {
