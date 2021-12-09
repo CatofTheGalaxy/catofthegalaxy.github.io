@@ -435,11 +435,6 @@
 				} else {
 					PreviousBoss[0] = listTime[i-1];
 					PreviousBoss[1] = bossdata[weekDay][listTime[i-1]];
-					/*for(let k = (i-1); k >= 0; k--) {
-						PreviousBoss[0] = listTime[k];
-						PreviousBoss[1] = bossdata[weekDay][listTime[k]];
-						break;
-					}*/
 				}
 					
 				//console.log(i + " " + (listSize-4))
@@ -449,11 +444,6 @@
 				} else {
 					NextBoss[0] = listTime[i+1];
 					NextBoss[1] = bossdata[weekDay][listTime[i+1]];
-					/*for(let k = (i+1); k <= (listSize-4); k++) {
-						NextBoss[0]	= listTime[k];
-						NextBoss[1] = bossdata[weekDay][listTime[k]];
-						break;
-					}*/
 				}
 				break;
 			} else {
@@ -520,9 +510,6 @@
 			document.getElementById(`previousBossName${n}`).innerHTML= "";
 		}
 		document.getElementById(`previousTimer`).innerHTML = `<h2>${formatSeconds(dateDiff)}`;
-
-
-
 	}, 1000);
 
 
@@ -530,9 +517,7 @@
 	//console.log(PreviousBoss)
 	//console.log(NextBoss)
 	//console.log(`${SizeTime}`)
-	
-	
-	
+
 	/*
 	TEST Data
 	data position note
@@ -552,10 +537,6 @@
 			}
 		}
 	
-	}
-*/
-	
-
-	
+	}*/
 </script>
 </html>
