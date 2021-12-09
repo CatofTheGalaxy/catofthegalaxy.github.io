@@ -337,21 +337,9 @@
 	var listTime = [], listSize, weekDay_tmp, bossPosition;
 	setInterval(function() {
 		let date = new Date();
-		
-		//Previous 
-		date.setDate(date.getDate() - 1);
-		let Previous_Date = completeDate(date);
-
-		//Current
-		date.setDate(date.getDate() + 1);
-		let Current_Date = completeDate(date);
-
-		//Next
-		date.setDate(date.getDate() + 1);
-		let Next_Date = completeDate(date);
-		
+		let dateStr = `${date.getFullYear()}/${(date.getMonth()+1)}/${date.getDate()}`;
 		let PreviousBoss = [], NextBoss = [], dateDiff, n = 0, alertType;
-		let weekDay = Current_Date.getDay();
+		let weekDay = date.getDay();
 		
 		if (weekDay !== weekDay_tmp) {
 			//list build *need to know boss position for previous and next
@@ -393,14 +381,12 @@
 		//-1 = previous day boss timer
 		//fix boss in next and previous day
 		
-		
-		
 		n = 0;
 		for(let i = bossPosition; i <= (listSize-4); i++) {
 			//console.log(bossdata[weekDay][listTime[i]]);
 			//console.log(listTime[i]);
-			dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${listTime[i]}`);
-			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+			dateDiff = new Date(`${dateStr} ${listTime[i]}`);
+			dateDiff = (dateDiff.getTime() - date.getTime()) / 1000;
 			if (dateDiff >= 0) {
 				for(let b in bossdata[weekDay][listTime[i]]) {
 					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[i]][b]["img"];
@@ -491,8 +477,8 @@
 		if (bossPosition > (listSize-4)) {
 			weekDay++; n = 0;
 			if (weekDay > 6) {weekDay = 0;}
-			dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${listTime[listSize-3]}`);
-			dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+			dateDiff = new Date(`${dateStr} ${listTime[listSize-3]}`);
+			dateDiff = (dateDiff.getTime() - date.getTime()) / 1000;
 			for(let b in bossdata[weekDay][listTime[listSize-3]]) {
 				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[listSize-3]][b]["img"];
 				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[listSize-3]][b]["name"]}`;
@@ -550,8 +536,8 @@
 		}
 
 		n = 0;
-		dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${NextBoss[0]}`);
-		dateDiff = (dateDiff.getTime() - Current_Date.getTime()) / 1000;
+		dateDiff = new Date(`${dateStr} ${NextBoss[0]}`);
+		dateDiff = (dateDiff.getTime() - date.getTime()) / 1000;
 		for(let b in NextBoss[1]) {
 			document.getElementById(`nextBoss${n}`).src= NextBoss[1][b]["img"];
 			document.getElementById(`nextBossName${n}`).innerHTML= `<h4>${NextBoss[1][b]["name"]}`;
@@ -566,8 +552,8 @@
 		
 		
 		n = 0;
-		dateDiff = new Date(`${Current_Date.getFullYear()}/${Current_Date.getMonth()+1}/${Current_Date.getDate()} ${PreviousBoss[0]}`);
-		dateDiff = (Current_Date.getTime() - dateDiff.getTime()) / 1000;
+		dateDiff = new Date(`${dateStr} ${PreviousBoss[0]}`);
+		dateDiff = (date.getTime() - dateDiff.getTime()) / 1000;
 		for(let b in PreviousBoss[1]) {
 			document.getElementById(`previousBoss${n}`).src= PreviousBoss[1][b]["img"];
 			document.getElementById(`previousBossName${n}`).innerHTML= `<h4>${PreviousBoss[1][b]["name"]}`;
