@@ -368,17 +368,17 @@
 		
 		if (weekDay !== weekDay_tmp) {
 			//list build *need to know boss position for previous and next
-			for(let bossTime in bossdata[weekDay]) {
-				if (bossdata[weekDay][bossTime].length > 0) {
-					listTime.push(bossTime);
+			for(let b in bossdata[weekDay]) {
+				if (bossdata[weekDay][b].length > 0) {
+					listTime.push(b);
 				}
 			}
 			
 			let w = weekDay+1;
 			if (w > 6) {w = 0;} //if week day is (6)Sat next day is (0)Sun
-			for(let bossTime in bossdata[w]) {
-				if (bossdata[w][bossTime].length > 0) {
-					listTime.push(bossTime);
+			for(let b in bossdata[w]) {
+				if (bossdata[w][b].length > 0) {
+					listTime.push(b);
 					if (n >= 1) { break; }
 					n++;
 				}
