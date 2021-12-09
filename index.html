@@ -350,7 +350,7 @@
 		date.setDate(date.getDate() + 1);
 		let Next_Date = completeDate(date);
 		
-		let PreviousBoss = [], NextBoss = [], dateDiff, bossCount = 0, n = 0, bossType;
+		let PreviousBoss = [], NextBoss = [], dateDiff, n = 0, alertType;
 		let weekDay = Current_Date.getDay();
 		
 		if (weekDay != weekDay_tmp) {
@@ -405,7 +405,7 @@
 				for(let b in bossdata[weekDay][listTime[i]]) {
 					document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[i]][b]["img"];
 					document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[i]][b]["name"]}`;
-					bossType = bossdata[weekDay][listTime[i]][b]["type"];
+					alertType = bossdata[weekDay][listTime[i]][b]["type"];
 					n++;
 				}
 				if (n == 1) {
@@ -418,35 +418,35 @@
 				//Alert zone
 				switch(dateDiff) {
 					case 1800:
-						switch(bossType) {
+						switch(alertType) {
 							case "world-boss": playSound('audio/30minboss.mp3'); break;
 							case "war-node": playSound('audio/30minnode.mp3'); break;
 							case "war-castle": playSound('audio/30mincastle.mp3'); break;
 						}
 						break;
 					case 900:
-						switch(bossType) {
+						switch(alertType) {
 							case "world-boss": playSound('audio/15minboss.mp3'); break;
 							case "war-node": playSound('audio/15minnode.mp3'); break;
 							case "war-castle": playSound('audio/15mincastle.mp3'); break;
 						}
 						break;
 					case 600:
-						switch(bossType) {
+						switch(alertType) {
 							case "world-boss": playSound('audio/10minboss.mp3'); break;
 							case "war-node": playSound('audio/10minnode.mp3'); break;
 							case "war-castle": playSound('audio/10mincastle.mp3'); break;
 						}
 						break;
 					case 300:
-						switch(bossType) {
+						switch(alertType) {
 							case "world-boss": playSound('audio/5minboss.mp3'); break;
 							case "war-node": playSound('audio/5minnode.mp3'); break;
 							case "war-castle": playSound('audio/5mincastle.mp3'); break;
 						}
 						break;
 					case 0:
-						switch(bossType) {
+						switch(alertType) {
 							case "world-boss": playSound('audio/bossappear.mp3'); break;
 							case "war-node": playSound('audio/nodewar.mp3'); break;
 							case "war-castle": playSound('audio/castlewar.mp3'); break;
@@ -458,11 +458,13 @@
 					PreviousBoss[0] = listTime[listSize-1];
 					PreviousBoss[1] = bossdata[weekDay-1][listTime[listSize-1]];
 				} else {
-					for(let k = (i-1); k >= 0; k--) {
+					PreviousBoss[0] = listTime[i-1];
+					PreviousBoss[1] = bossdata[weekDay][listTime[i-1]];
+					/*for(let k = (i-1); k >= 0; k--) {
 						PreviousBoss[0] = listTime[k];
 						PreviousBoss[1] = bossdata[weekDay][listTime[k]];
 						break;
-					}
+					}*/
 				}
 					
 				//console.log(i + " " + (listSize-4))
@@ -470,14 +472,14 @@
 					NextBoss[0]	= listTime[listSize-3];
 					NextBoss[1] = bossdata[weekDay+1][listTime[listSize-3]];
 				} else {
-					for(let k = (i+1); k <= (listSize-4); k++) {
+					NextBoss[0]	= listTime[i+1];
+					NextBoss[1] = bossdata[weekDay][listTime[i+1]];
+					/*for(let k = (i+1); k <= (listSize-4); k++) {
 						NextBoss[0]	= listTime[k];
 						NextBoss[1] = bossdata[weekDay][listTime[k]];
 						break;
-					}
+					}*/
 				}
-				
-				bossCount++;
 				break;
 			} else {
 				//update to next position *no need full loop
@@ -486,7 +488,7 @@
 		}
 		
 		//Fix next day boss
-		if (bossCount == 0) {
+		if (bossPosition > (listSize-4)) {
 			weekDay++; n = 0;
 			if (weekDay > 6) {weekDay = 0;}
 			dateDiff = new Date(`${Next_Date.getFullYear()}/${Next_Date.getMonth()+1}/${Next_Date.getDate()} ${listTime[listSize-3]}`);
@@ -494,7 +496,7 @@
 			for(let b in bossdata[weekDay][listTime[listSize-3]]) {
 				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[listSize-3]][b]["img"];
 				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[listSize-3]][b]["name"]}`;
-				bossType = bossdata[weekDay][listTime[listSize-3]][b]["type"];
+				alertType = bossdata[weekDay][listTime[listSize-3]][b]["type"];
 				//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 				n++;
 			}
@@ -506,35 +508,35 @@
 			//Alert zone
 			switch(dateDiff) {
 				case 1800:
-					switch(bossType) {
+					switch(alertType) {
 						case "world-boss": playSound('audio/30minboss.mp3'); break;
 						case "war-node": playSound('audio/30minnode.mp3'); break;
 						case "war-castle": playSound('audio/30mincastle.mp3'); break;
 					}
 					break;
 				case 900:
-					switch(bossType) {
+					switch(alertType) {
 						case "world-boss": playSound('audio/15minboss.mp3'); break;
 						case "war-node": playSound('audio/15minnode.mp3'); break;
 						case "war-castle": playSound('audio/15mincastle.mp3'); break;
 					}
 					break;
 				case 600:
-					switch(bossType) {
+					switch(alertType) {
 						case "world-boss": playSound('audio/10minboss.mp3'); break;
 						case "war-node": playSound('audio/10minnode.mp3'); break;
 						case "war-castle": playSound('audio/10mincastle.mp3'); break;
 					}
 					break;
 				case 300:
-					switch(bossType) {
+					switch(alertType) {
 						case "world-boss": playSound('audio/5minboss.mp3'); break;
 						case "war-node": playSound('audio/5minnode.mp3'); break;
 						case "war-castle": playSound('audio/5mincastle.mp3'); break;
 					}
 					break;
 				case 0:
-					switch(bossType) {
+					switch(alertType) {
 						case "world-boss": playSound('audio/bossappear.mp3'); break;
 						case "war-node": playSound('audio/nodewar.mp3'); break;
 						case "war-castle": playSound('audio/castlewar.mp3'); break;
