@@ -302,11 +302,6 @@
 
 <script src="js/boss.js"></script>
 <script>
-	function addZero(n) {
-		if (n <= 9) {n = '0' + n};
-		return n;
-	}
-	
 	function formatSeconds(seconds) {
 		var date = new Date(1970,0,1);
 		date.setSeconds(seconds);
@@ -360,7 +355,7 @@
 		}
 	}
 
-	var listTime = [], listSize, weekDay_tmp, bossPosition;
+	var listTime = [], listSize, weekDay_tmp, bossPosition, bossCheck;
 	setInterval(function() {
 		let date = new Date(), weekDay = date.getDay(), dateDiff;
 		let dateStr = `${date.getFullYear()}/${(date.getMonth()+1)}/${date.getDate()}`;
@@ -397,6 +392,7 @@
 			listSize = listTime.length;
 			weekDay_tmp = weekDay;
 			bossPosition = 0;
+			bossCheck = [];
 		}
 		
 		//console.log(listTime)
@@ -404,7 +400,6 @@
 		//-4 = max boss number in day
 		//-2 -3 = next day boss timer
 		//-1 = previous day boss timer
-		//fix boss in next and previous day
 		
 		n = 0;
 		for(let i = bossPosition; i <= (listSize-4); i++) {
@@ -454,14 +449,15 @@
 		
 		//Fix next day boss
 		if (bossPosition > (listSize-4)) {
-			weekDay++; n = 0;
-			if (weekDay > 6) {weekDay = 0;}
+			let a = weekDay+1; 
+			if (a > 6) {a = 0;}
+			n = 0;
 			dateDiff = new Date(`${dateStr} ${listTime[listSize-3]}`);
 			dateDiff = (dateDiff.getTime() - date.getTime()) / 1000;
-			for(let b in bossdata[weekDay][listTime[listSize-3]]) {
-				document.getElementById(`currentBoss${n}`).src= bossdata[weekDay][listTime[listSize-3]][b]["img"];
-				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[weekDay][listTime[listSize-3]][b]["name"]}`;
-				alertType = bossdata[weekDay][listTime[listSize-3]][b]["type"];
+			for(let b in bossdata[a][listTime[listSize-3]]) {
+				document.getElementById(`currentBoss${n}`).src= bossdata[a][listTime[listSize-3]][b]["img"];
+				document.getElementById(`currentBossName${n}`).innerHTML= `<h3>${bossdata[a][listTime[listSize-3]][b]["name"]}`;
+				alertType = bossdata[a][listTime[listSize-3]][b]["type"];
 				//console.log(`${formatSeconds(dateDiff)} ${NextBoss[1][b]["name"]}`)
 				n++;
 			}
@@ -475,9 +471,9 @@
 			playAlert(dateDiff, alertType);
 			
 			PreviousBoss[0] = listTime[listSize-1];
-			PreviousBoss[1] = bossdata[weekDay-1][listTime[listSize-1]];
+			PreviousBoss[1] = bossdata[a-1][listTime[listSize-1]];
 			NextBoss[0] = listTime[listSize-2];
-			NextBoss[1] = bossdata[weekDay][listTime[listSize-2]];
+			NextBoss[1] = bossdata[a][listTime[listSize-2]];
 		}
 
 		n = 0;
