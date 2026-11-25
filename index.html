@@ -39,7 +39,7 @@
 </head>
 <body>
 	<div id="loader"><div class="spinner"></div><div class="loader-text">Loading Endfield - Report Dashboard...</div><div id="reload-box"><div class="reload-hint">Taking longer than expected?</div><button id="reload-btn" type="button">Reload this site.</button></div></div>
-	<iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbzqcvZywKppsi0bcuKkDw6XlnmpRSQL2h07mkTCKtBcwmwK4V9jLdI29yrt-sqQEMg6/exec" title="Endfield - Report Dashboard" allow="fullscreen" allowfullscreen scrolling="no"></iframe>
+	<iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbzqcvZywKppsi0bcuKkDw6XlnmpRSQL2h07mkTCKtBcwmwK4V9jLdI29yrt-sqQEMg6/exec" allow="fullscreen" allowfullscreen scrolling="no"></iframe>
 	<script>
 		const f=document.getElementById("app-frame"),l=document.getElementById("loader"),rb=document.getElementById("reload-box"),btn=document.getElementById("reload-btn"),base=f.src;let loaded=0,timer;const arm=()=>timer=setTimeout(()=>!loaded&&rb.classList.add("show"),1e4),done=()=>{loaded=1;clearTimeout(timer);l.classList.add("fade-out")};f.addEventListener("load",done);btn.addEventListener("click",()=>{clearTimeout(timer);rb.classList.remove("show");loaded=0;l.classList.remove("fade-out");f.src="about:blank";requestAnimationFrame(()=>{const u=new URL(base);u.searchParams.set("_r",Date.now());f.src=u});arm()});arm();
 	</script>
